@@ -1,17 +1,22 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 public class SearchPage {
 	
 	WebDriver driver;
 	By searchBox=By.name("q");
 	By resultsDisplayWord=By.id("result-stats");
 	
-	
-	public searchPage(WebDriver driver) {
+
+	public SearchPage(WebDriver driver) {
 		this.driver=driver;
 		
 	}
 	
+
 	public void enterSearchText(String searchWord) {	
 		driver.findElement(searchBox).sendKeys(searchWord);	
 	}
@@ -21,7 +26,7 @@ public class SearchPage {
 	}
 	
 	public boolean resultDisplayWordPresent() {
-		boolean present = resultsDisplayWord.isDisplayed();
+		boolean present = ((WebElement) resultsDisplayWord).isDisplayed();
 		return present;
 	}
 	

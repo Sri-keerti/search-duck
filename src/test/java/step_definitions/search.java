@@ -1,15 +1,26 @@
 package step_definitions;
 
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.SearchPage;
 
 public class search {
 	
+	WebDriver driver;
+	SearchPage search = new SearchPage(driver);
+	//SearchPage search;
+	
 	@Given("user launch Chrome browser")
 	public void user_launch_chrome_browser() {
-		System.setProperty("webdriver.gecko.driver", "/Users/srilakshmikeerti/Desktop/geckodriver");
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "/Users/srilakshmikeerti/Desktop/geckodriver");
+		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 
 	}
@@ -25,23 +36,20 @@ public class search {
 	public void user_enters_in_search_text_box(String string) {
 		
 		String searchWord = "duck";
-		searchPage search = new searchPage(driver);
 		search.enterSearchText(searchWord);
 	}
 	
 
 	@When("click search")
 	public void click_search() {
-		SearchPage search = new searchPage(driver);
 		search.clickSearch();
 	}
 
 	@Then("User can view results page")
 	public void user_can_view_results_page() {
 		
-		SearchPage search = new searchPage(driver);
 		search.resultDisplayWordPresent();
-		Assert.assertTrue(search.resultDisplayWordPresent(), "Results are displyed");
+		Assert.assertTrue(search.resultDisplayWordPresent());
 		
 		driver.close();
 		driver.quit();
@@ -51,4 +59,4 @@ public class search {
 	
 	
 
-}
+
