@@ -1,36 +1,36 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class SearchPage {
 	
-	WebDriver driver;
-	By searchBox=By.name("q");
-	By resultsDisplayWord=By.id("result-stats");
+	public WebDriver sdriver;
 	
-
-	public SearchPage(WebDriver driver) {
-		this.driver=driver;
-		
+	public SearchPage(WebDriver rdriver) {
+		sdriver = rdriver;
+		PageFactory.initElements(rdriver, this);
 	}
 	
-
+	WebDriver driver;
+	@FindBy(name="q")
+	WebElement searchBox; 
+	@FindBy(id = "result-stats")
+	WebElement resultsDisplayWord;
+	
 	public void enterSearchText(String searchWord) {	
-		driver.findElement(searchBox).sendKeys(searchWord);	
+	    searchBox.sendKeys(searchWord);
 	}
 	
 	public void clickSearch() {
-		driver.findElement(searchBox).submit();
+		searchBox.submit();
 	}
 	
 	public boolean resultDisplayWordPresent() {
-		boolean present = ((WebElement) resultsDisplayWord).isDisplayed();
+		boolean present = resultsDisplayWord.isDisplayed();
 		return present;
 	}
 	
-	
-	
-
 }
